@@ -22,23 +22,27 @@ Valid_y = yTrain[a]
 #clf = grid_search.GridSearchCV(RF, params_rf, cv=4)
 #clf.fit(xTrain,yTrain)
 
-C_list = [0.6,0.65,0.7,0.75,0.8,0.9,1]
+C_list = [0,0.2,0.4,0.6,0.8,1]
 
 error_rate = []
 
 for C in C_list:
-    clf_rf = ensemble.RandomForestClassifier(n_estimators=20)
+    #clf_rf = ensemble.RandomForestClassifier(n_estimators=20)
+    clf_gb = ensemble.GradientBoostingClassifier(n_estimators=20)
     clf_ab = ensemble.AdaBoostClassifier(n_estimators=50)
-    clf_rf.fit(Train_x,Train_y)
+    #clf_rf.fit(Train_x,Train_y)
+    clf_gb.fit(Train_x,Train_y)
     clf_ab.fit(Train_x,Train_y)
-    pred_rf = clf_rf.predict(Valid_x)
-    pred_ab = clf_ab.predict(Valid_x)
-    pred_mix = pred_rf * C + pred_ab * (1-C)
+    #pred_rf = clf_rf.predict_proba(Valid_x)[:,1]
+    pred_gb = clf_gb.predict_proba(Valid_x)[:,1]
+    pred_ab = clf_ab.predict_proba(Valid_x)[:,1]
+    # pred_mix = pred_rf * C + pred_ab * (1-C)
+    pred_mix = pred_gb * C + pred_ab * (1-C)
     pred_mix = pred_mix + 0.5
     pred = np.zeros(len(pred_mix))
     for i, p in enumerate(pred_mix):
         pred[i] = int(p)
-    error_rate.append(np.sum(np.abs(Valid_y - pred)) / len(Valid_y))
+    error_rate.append(np.sum(np.abs(Valid_y - pred)) / np.sum(Valid_y))
     
 plt.plot(C_list,error_rate)
 # plt.xscale('log')

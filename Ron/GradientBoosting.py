@@ -22,16 +22,17 @@ Valid_y = yTrain[a]
 #clf = grid_search.GridSearchCV(RF, params_rf, cv=4)
 #clf.fit(xTrain,yTrain)
 
-C_list = [16,18,20,22,24]
-C_list = 20
+C_list = [10,20,50,100]
+# C_list = 20
 
 error_rate = []
 
 for C in C_list:
-    clf = ensemble.RandomForestClassifier(n_estimators=C)
+    clf = ensemble.GradientBoostingClassifier(n_estimators=C)
     clf.fit(Train_x,Train_y)
-#    pred = clf.predict(Valid_x)
-#    error_rate.append(np.sum(np.abs(Valid_y - pred)) / len(Valid_y))
-    
+    pred = clf.predict(Valid_x)
+    error_rate.append(np.sum(np.abs(Valid_y - pred)) / np.sum(Valid_y))
+
+plt.plot(error_rate)    
 #plt.plot(C_list,error_rate)
 #plt.xscale('log')
