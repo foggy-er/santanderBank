@@ -14,3 +14,6 @@ XY_Train[:,-1] = Y_Train
 
 pca = PCA(n_components = np.shape(X_Train)[1])
 pca.fit(X_Train)
+
+X_Train_pca = pca.transform(X_Train)
+X_Train_pca = X_Train_pca[:,:237]

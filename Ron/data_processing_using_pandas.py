@@ -32,6 +32,7 @@ for i in range(len(columns)-1):
 df_train.drop(col_rm, axis=1, inplace=True)
 df_test.drop(col_rm, axis=1, inplace=True)
 
+# X_Train is the features of training data, Y_Train is the target of training data
 ID_Train = df_train['ID'].values
 Y_Train = df_train['TARGET'].values
 X_Train = df_train.drop(['ID', 'TARGET'], axis=1).values
