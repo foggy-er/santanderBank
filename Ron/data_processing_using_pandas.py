@@ -38,4 +38,4 @@ Y_Train = df_train['TARGET'].values
 X_Train = df_train.drop(['ID', 'TARGET'], axis=1).values
 
 ID_Test = df_test['ID'].values
-X_Test = df_train.drop(['ID'], axis=1).values
+X_Test = df_test.drop(['ID'], axis=1).values
