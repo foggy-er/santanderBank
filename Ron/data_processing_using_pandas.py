@@ -14,7 +14,6 @@ df_test = pd.read_csv('test.csv')
 # Remove constant columns
 col_rm = []
 for col in df_train.columns:
-    print(len(np.unique(df_train[col].values)))
     if len(np.unique(df_train[col].values))==1:
         col_rm.append(col)
 
